@@ -9,5 +9,6 @@ I wanted to learn how to develop a game then I just started the learning with [t
  - [x] Character, animations, controllers, basic movement is done.
  - [x] Character movement animation improved more than tutorial (When you release the key, the animation stops in player direction).
 
+![Day 1](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day1.gif)
 
 ***#LearningOnTheRoad***
