@@ -11,4 +11,11 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 1](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day1.gif)
 
+### 2. Day
+ - [x] Used [tiled map editor](https://www.mapeditor.org/).
+ - [x] Generated main map and integrated.
+
+![Day 2](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day2.gif)
+
+
 ***#LearningOnTheRoad***
