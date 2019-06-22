@@ -8,8 +8,11 @@ let engine = new Engine();
 
 let map = new Map(testMap, mapImage);
 engine.addObject(map);
+engine.addColliders(map.getColliders());
 
-let player = new Player(20, 20);
+engine.phyDebug = true;
+
+let player = new Player(engine,30, 50);
 engine.addObject(player);
 
 
@@ -26,12 +29,12 @@ engine.update = (dt) => {
     }
 
     else if (engine.input.isKeyDown("KeyW")) {
-        player.translate(0, -50 * dt);
+        player.translate(0, -50 * dt * .8);
         player.facing = 0;
     }
 
     else if (engine.input.isKeyDown("KeyS")) {
-        player.translate(0, 50 * dt);
+        player.translate(0, 50 * dt * .8);
         player.facing = 2;
     }
     else switch (engine.input.lastDirection) {

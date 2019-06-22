@@ -17,5 +17,11 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 2](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day2.gif)
 
+### 3. Day
+ - [x] Colliders are developed.
+
+![Day 2](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day3.gif)
+
+
 
 ***#LearningOnTheRoad***

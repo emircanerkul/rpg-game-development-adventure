@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="8" tileheight="8" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="8" tileheight="8" infinite="0" nextlayerid="11" nextobjectid="18">
  <tileset firstgid="1" source="dungeon.tsx"/>
- <layer id="5" name="Tile Layer 1" width="25" height="25">
+ <layer id="9" name="Tile Layer 1" width="25" height="25">
   <data encoding="csv">
 189,190,191,192,193,194,195,196,197,190,191,192,193,194,195,196,190,191,192,193,194,195,196,197,198,
 235,283,284,285,286,287,288,289,282,283,284,285,286,378,288,289,282,283,284,285,286,425,288,289,244,
@@ -30,7 +30,7 @@
 603,604,605,606,607,608,609,610,611,604,605,606,607,608,609,610,611,604,605,606,607,608,609,610,612
 </data>
  </layer>
- <layer id="6" name="Tile Layer 2" width="25" height="25">
+ <layer id="10" name="Tile Layer 2" width="25" height="25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -59,4 +59,15 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="8" name="collider">
+  <object id="6" x="0" y="0" width="8" height="200"/>
+  <object id="7" x="8" y="192" width="192" height="8"/>
+  <object id="8" x="192" y="0" width="8" height="192"/>
+  <object id="9" x="8" y="0" width="184" height="8"/>
+  <object id="10" x="19.5" y="19.5" width="11" height="11"/>
+  <object id="11" x="115" y="19" width="12" height="11.5"/>
+  <object id="12" x="49.5625" y="98.25" width="13" height="12"/>
+  <object id="13" x="27" y="171" width="11" height="11.5"/>
+  <object id="14" x="138.5" y="179" width="12" height="12.5"/>
+ </objectgroup>
 </map>

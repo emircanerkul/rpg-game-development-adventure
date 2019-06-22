@@ -1,4 +1,5 @@
 import Renderable from "./renderable";
+import Box from "./phybox";
 
 export default class GameObject {
     constructor() {
@@ -15,6 +16,9 @@ export default class GameObject {
         this.position[1] += y;
     }
 
+    update(engine, dt){
+    }
+
     draw(ctx) {
         ctx.save();
         ctx.translate(this.position[0], this.position[1])
@@ -25,6 +29,10 @@ export default class GameObject {
             }
 
             if (child instanceof Renderable) {
+                child.draw(ctx);
+            }
+
+            if (child instanceof Box) {
                 child.draw(ctx);
             }
         })
