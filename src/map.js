@@ -15,7 +15,7 @@ export default class Map extends GameObject {
         this.data.layers.forEach(layer => {
             if (layer.type == "objectgroup") {
                 layer.objects.forEach(obj => {
-                    this.colliders.push(new Box(obj.x, obj.y, obj.width, obj.height));
+                    this.colliders.push(new Box(this, obj.x, obj.y, obj.width, obj.height));
                 });
             }
         });

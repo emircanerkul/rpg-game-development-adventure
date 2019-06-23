@@ -20,8 +20,15 @@ I wanted to learn how to develop a game then I just started the learning with [t
 ### 3. Day
  - [x] Colliders are developed.
 
-![Day 2](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day3.gif)
+![Day 3](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day3.gif)
 
+### 4. Day
+ - [x] Tutorials are finished. Now i continue with own my own.
+ - [x] Coin class added. Coin [asset](https://opengameart.org/content/gold-treasure-icons-16x16) is imported.
+ - [x] Improved collision class for detect object types.
+ - [x] Coin and its collider generated.
+ - [x] Basic interactions are done.
 
+![Day 4](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day4.gif)
 
 ***#LearningOnTheRoad***

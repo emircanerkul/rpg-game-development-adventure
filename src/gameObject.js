@@ -16,7 +16,8 @@ export default class GameObject {
         this.position[1] += y;
     }
 
-    update(engine, dt){
+    update(engine, dt) {
+        this.children.forEach(child => child.update(engine, dt));
     }
 
     draw(ctx) {
@@ -28,13 +29,19 @@ export default class GameObject {
                 child.draw(ctx);
             }
 
-            if (child instanceof Renderable) {
+             if (child instanceof Renderable) {
                 child.draw(ctx);
             }
 
-            if (child instanceof Box) {
+             if (child instanceof Box) {
                 child.draw(ctx);
             }
+             if (child instanceof Coin) {
+                child.draw(ctx);
+
+            }
+            else console.log("Isn't renderable object");
+
         })
         ctx.restore();
     }

@@ -31,7 +31,9 @@ export default class Engine {
     }
 
     addColliders(collider) {
-        this.colliders = collider;
+        Array.isArray(collider) ? collider.forEach(c=>this.colliders.push(c)): this.colliders.push(collider) ;
+
+        console.log(this.colliders);
     }
 
     getCollision(x, y) {
@@ -62,7 +64,6 @@ export default class Engine {
         this.objs.forEach(obj => {
             obj.draw(this.ctx);
         })
-
 
         if (this.phyDebug)
             this.colliders.forEach(collider => {
