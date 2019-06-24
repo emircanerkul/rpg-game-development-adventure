@@ -7,6 +7,69 @@ export default class Player extends GameObject {
         super();
         this.engine = engine;
         this.position = [x, y];
+        this.opacity = 1;
+        this.stamina = 100;
+        this.mana = 100;
+        this.health = 100;
+
+        this.speed = 0.3;
+        this.skills = {
+            "slide": {
+                type: "active",
+                wait: 1000,
+                effect: -1,
+                decrease: {
+                    mana: 10,
+                    health: 0,
+                    stamina: 5
+                },
+                increase: {
+                    mana: 0,
+                    health: 1,
+                    stamina: 0
+                },
+                last_time: 0,
+                use: function (engine, player) {
+
+                    if (Date.now() - this.last_time > this.wait) {
+
+                        switch (engine.input.lastDirection) {
+                            case "KeyA":
+                                player.position[0] -= 20;
+                                break;
+                            case "KeyD":
+                                player.position[0] += 20;
+                                break;
+                            case "KeyS":
+                                player.position[1] += 20;
+                                break;
+                            case "KeyW":
+                                player.position[1] -= 20;
+                                break;
+                        }
+                        this.last_time = Date.now();
+                    }
+                }
+            },
+            "_proto": {
+                type: "active", //Need trigger or not {active,passive}
+                wait: 1000, //Used 1 time per $wait {Int, milisecond}
+                effect: -1, //Effect {-1: instantly, Int: effect time in milisecond}
+                decrease: {
+                    mana: 10,
+                    health: 1,
+                    stamina: 5
+                },
+                increase: {
+                    mana: 0,
+                    health: 1,
+                    stamina: 0
+                },
+                last_time: 0, //For calculation {Long|Int: timestamp}
+                use: function () { } //Skill Caller
+            }
+        };
+
         this.facing = 6;
         this.renderables = [
             new Renderable(playerImg, 0.5, 0, 2, 3, 4, 7),
@@ -47,7 +110,7 @@ export default class Player extends GameObject {
         ctx.save()
         ctx.translate(this.position[0], this.position[1]);
 
-        this.renderables[this.facing].draw(ctx);
+        this.renderables[this.facing].draw(ctx, this.opacity);
         ctx.restore();
     }
 }

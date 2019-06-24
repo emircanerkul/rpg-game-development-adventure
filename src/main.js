@@ -7,8 +7,8 @@ import Coin from './coin.js';
 import Box, { CoinC } from './phybox.js';
 
 let engine = new Engine();
-let coin = new Coin(50,50);
-let coinCollider = new Box(coin, 53,53,8,8);
+let coin = new Coin(50, 50);
+let coinCollider = new Box(coin, 53, 53, 8, 8);
 let map = new Map(testMap, mapImage);
 
 engine.addObject(map);
@@ -26,7 +26,7 @@ engine.update = (dt) => {
 
     if (engine.input.isKeyDown("KeyA")) {
         let oPoint = player.position[0];
-        player.translate(-50 * dt, 0);
+        player.translate(-100 * dt * player.speed, 0);
 
         if (oPoint == player.position[0]) player.facing = 7;
         else player.facing = 3;
@@ -34,7 +34,7 @@ engine.update = (dt) => {
 
     else if (engine.input.isKeyDown("KeyD")) {
         let oPoint = player.position[0];
-        player.translate(50 * dt, 0);
+        player.translate(100 * dt * player.speed, 0);
 
         if (oPoint == player.position[0]) player.facing = 5;
         else player.facing = 1;
@@ -42,7 +42,7 @@ engine.update = (dt) => {
 
     else if (engine.input.isKeyDown("KeyW")) {
         let oPoint = player.position[1];
-        player.translate(0, -50 * dt * .8);
+        player.translate(0, -100 * dt * player.speed * .8);
 
         if (oPoint == player.position[1]) player.facing = 4;
         else player.facing = 0;
@@ -50,7 +50,7 @@ engine.update = (dt) => {
 
     else if (engine.input.isKeyDown("KeyS")) {
         let oPoint = player.position[1];
-        player.translate(0, 50 * dt * .8);
+        player.translate(0, 100 * dt * player.speed * .8);
 
         if (oPoint == player.position[1]) player.facing = 6;
         else player.facing = 2;
@@ -69,5 +69,17 @@ engine.update = (dt) => {
         case "KeyW":
             player.facing = 4;
             break;
+    }
+
+
+    if (engine.input.isKeyDown("Space")) {
+        player.skills.slide.use(engine, player);
+    }
+
+    if (engine.input.isKeyDown("ShiftLeft")) {
+        player.speed = .5;
+    }
+    else {
+        player.speed = .3;
     }
 }

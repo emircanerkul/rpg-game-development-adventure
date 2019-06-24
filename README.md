@@ -31,4 +31,12 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 4](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day4.gif)
 
+### 5. Day
+ - [x] Added some player properties like health, mana, stamina.
+ - [x] Developed slide skill. Player can slide at 1 second intervals.
+ - [x] Also the player can run.
+
+
+![Day 5](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day5.gif)
+
 ***#LearningOnTheRoad***
