@@ -1,5 +1,6 @@
 import GameObject from "./gameObject";
 import Input from "./input";
+import Gui from "./gui";
 
 export default class Engine {
     constructor() {
@@ -14,6 +15,8 @@ export default class Engine {
         this.ctx = this.canvas.getContext("2d");
         this.ctx.imageSmoothingEnabled = false;
 
+
+        this.gui = new Gui(this);
         this.objs = [];
         this.colliders = [];
 
@@ -21,6 +24,11 @@ export default class Engine {
 
         this.input = new Input();
         window.requestAnimationFrame(this.loop.bind(this));
+    }
+
+    setPlayer(player) {
+        this.player = player;
+        this.addObject(player);
     }
 
     addObject(obj) {
@@ -31,9 +39,7 @@ export default class Engine {
     }
 
     addColliders(collider) {
-        Array.isArray(collider) ? collider.forEach(c=>this.colliders.push(c)): this.colliders.push(collider) ;
-
-        console.log(this.colliders);
+        Array.isArray(collider) ? collider.forEach(c => this.colliders.push(c)) : this.colliders.push(collider);
     }
 
     getCollision(x, y) {
@@ -69,6 +75,9 @@ export default class Engine {
             this.colliders.forEach(collider => {
                 collider.draw(this.ctx);
             });
+
+        this.gui.draw(this.ctx);
+
         this.lastTime = time;
         window.requestAnimationFrame(this.loop.bind(this));
     }

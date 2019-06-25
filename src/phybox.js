@@ -1,5 +1,6 @@
 export default class Box {
-    constructor(obj, x, y, w, h) {
+    constructor(type, x, y, w, h, obj = null) {
+        this.type = type;
         this.obj = obj;
         this.x = x;
         this.y = y;
@@ -14,8 +15,22 @@ export default class Box {
     }
 
     draw(ctx) {
-
-        ctx.strokeStyle = this.obj.constructor.name == "Map" ? '#FF000080' : '#00FF00DD';
+        switch (this.type) {
+            case "collider":
+                ctx.strokeStyle = '#FF000080';
+                break;
+            case "guards":
+                ctx.strokeStyle = '#00FF00DD';
+                break;
+            case "trader":
+                ctx.strokeStyle = '#00FFFFDD';
+                break;
+            case "coin":
+                ctx.strokeStyle = '#FFFF00DD';
+                break;
+            default:
+                break;
+        }
         ctx.lineWidth = .4;
         ctx.strokeRect(this.x, this.y, this.w, this.h);
     }

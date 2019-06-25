@@ -11,6 +11,7 @@ export default class Player extends GameObject {
         this.stamina = 100;
         this.mana = 100;
         this.health = 100;
+        this.gold = 0;
 
         this.speed = 0.3;
         this.skills = {
@@ -19,7 +20,7 @@ export default class Player extends GameObject {
                 wait: 1000,
                 effect: -1,
                 decrease: {
-                    mana: 10,
+                    mana: 5,
                     health: 0,
                     stamina: 5
                 },
@@ -30,9 +31,8 @@ export default class Player extends GameObject {
                 },
                 last_time: 0,
                 use: function (engine, player) {
-
                     if (Date.now() - this.last_time > this.wait) {
-
+                        player.mana -= this.decrease.mana;
                         switch (engine.input.lastDirection) {
                             case "KeyA":
                                 player.position[0] -= 20;
@@ -88,15 +88,16 @@ export default class Player extends GameObject {
 
         if (collision !== false) {
 
-            if (collision.obj.constructor.name == "Coin") {
-                let nextPosX = Math.random() * 200;
-                let nextPosY = Math.random() * 200;
+            if (collision.type == "coin") {
+                let nextPosX = Math.random() * 100 + 50;
+                let nextPosY = Math.random() * 100 + 15;
 
                 collision.obj.position[0] = nextPosX;
                 collision.obj.position[1] = nextPosY;
 
                 collision.x = nextPosX + 3;
                 collision.y = nextPosY + 3;
+                this.gold++;
             }
             else {
                 x = 0;

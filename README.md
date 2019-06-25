@@ -36,7 +36,12 @@ I wanted to learn how to develop a game then I just started the learning with [t
  - [x] Developed slide skill. Player can slide at 1 second intervals.
  - [x] Also the player can run.
 
-
 ![Day 5](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day5.gif)
+
+### 6. Day
+ - [x] Gui completed for the first stage.
+ - [x] Collider group system developed for advanced interactions.
+
+![Day 6](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day6.gif)
 
 ***#LearningOnTheRoad***

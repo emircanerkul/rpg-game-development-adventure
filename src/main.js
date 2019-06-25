@@ -4,11 +4,11 @@ import Map from './map.js';
 import mapImage from './assets/dungeon_tiles.png';
 import testMap from './assets/map.json';
 import Coin from './coin.js';
-import Box, { CoinC } from './phybox.js';
+import Box from './phybox.js';
 
 let engine = new Engine();
 let coin = new Coin(50, 50);
-let coinCollider = new Box(coin, 53, 53, 8, 8);
+let coinCollider = new Box("coin", 53, 53, 8, 8,coin);
 let map = new Map(testMap, mapImage);
 
 engine.addObject(map);
@@ -19,7 +19,7 @@ engine.addColliders(map.getColliders());
 engine.phyDebug = true;
 
 let player = new Player(engine, 25, 65);
-engine.addObject(player);
+engine.setPlayer(player);
 
 
 engine.update = (dt) => {
