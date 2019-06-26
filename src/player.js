@@ -1,12 +1,15 @@
 import GameObject from "./gameObject";
 import Renderable from "./renderable";
 import playerImg from './assets/characters/healer_m.png';
+import Scenario from "./scenario";
 
 export default class Player extends GameObject {
     constructor(engine, x, y) {
         super();
+        this.scenario = new Scenario(this);
         this.engine = engine;
         this.position = [x, y];
+        this.name = "Chagum";
         this.opacity = 1;
         this.stamina = 100;
         this.mana = 100;
@@ -31,7 +34,7 @@ export default class Player extends GameObject {
                 },
                 last_time: 0,
                 use: function (engine, player) {
-                    if (Date.now() - this.last_time > this.wait) {
+                    if (Date.now() - this.last_time > this.wait && player.mana > 0) {
                         player.mana -= this.decrease.mana;
                         switch (engine.input.lastDirection) {
                             case "KeyA":
@@ -69,7 +72,6 @@ export default class Player extends GameObject {
                 use: function () { } //Skill Caller
             }
         };
-
         this.facing = 6;
         this.renderables = [
             new Renderable(playerImg, 0.5, 0, 2, 3, 4, 7),
@@ -107,11 +109,43 @@ export default class Player extends GameObject {
         super.translate(x, y);
     }
 
+    talk(ctx, text) {
+        ctx.font = "6px roboto";
+        ctx.fillStyle = "#00000080";
+        let dialogX;
+        if (this.position[0] <= 100) dialogX = this.position[0] + (this.renderables[0].subWidth * this.renderables[0].scale) + 5;
+        else dialogX = this.position[0] - ctx.measureText(text).width - 10;
+
+        ctx.fillRect(dialogX, this.position[1] + 2, ctx.measureText(text).width + 8, 12);
+
+        ctx.restore();
+        ctx.save()
+
+        ctx.fillStyle = "#fff";
+        ctx.fillText(text, dialogX + 4, this.position[1] + 10);
+        ctx.restore();
+        ctx.save()
+    }
+
     draw(ctx) {
+        this.scenario.tick(ctx);
+
         ctx.save()
         ctx.translate(this.position[0], this.position[1]);
 
         this.renderables[this.facing].draw(ctx, this.opacity);
+        ctx.restore();
+        ctx.save()
+
+        ctx.font = "bolder 6px Roboto";
+        ctx.fillStyle = "#ffffff90";
+
+        ctx.shadowBlur = 2;
+        ctx.shadowOffsetX = 1;
+        ctx.shadowOffsetY = 1;
+        ctx.shadowColor = "#000"
+
+        ctx.fillText(this.name, this.position[0] + (this.renderables[0].subWidth * this.renderables[0].scale / 2) - ctx.measureText(this.name).width / 2, this.position[1] - 5);
         ctx.restore();
     }
 }

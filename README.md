@@ -44,4 +44,10 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 6](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day6.gif)
 
+### 7. Day
+ - [x] The main story has been edited.
+ - [x] Scenario manager is developed.
+
+![Day 7](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day7.gif)
+
 ***#LearningOnTheRoad***
