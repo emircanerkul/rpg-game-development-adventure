@@ -11,7 +11,6 @@ export default class Player extends GameObject {
         this.position = [x, y];
         this.name = "Chagum";
         this.opacity = 1;
-        this.stamina = 100;
         this.mana = 100;
         this.health = 100;
         this.gold = 0;
@@ -24,13 +23,11 @@ export default class Player extends GameObject {
                 effect: -1,
                 decrease: {
                     mana: 5,
-                    health: 0,
-                    stamina: 5
+                    health: 0
                 },
                 increase: {
                     mana: 0,
-                    health: 1,
-                    stamina: 0
+                    health: 1
                 },
                 last_time: 0,
                 use: function (engine, player) {
@@ -60,13 +57,11 @@ export default class Player extends GameObject {
                 effect: -1, //Effect {-1: instantly, Int: effect time in milisecond}
                 decrease: {
                     mana: 10,
-                    health: 1,
-                    stamina: 5
+                    health: 1
                 },
                 increase: {
                     mana: 0,
-                    health: 1,
-                    stamina: 0
+                    health: 1
                 },
                 last_time: 0, //For calculation {Long|Int: timestamp}
                 use: function () { } //Skill Caller
@@ -89,17 +84,31 @@ export default class Player extends GameObject {
         let collision = this.engine.getCollision(this.position[0] + x + this.renderables[0].subWidth / 4, this.position[1] + y + this.renderables[0].subHeight / 2);
 
         if (collision !== false) {
-
             if (collision.type == "coin") {
-                let nextPosX = Math.random() * 100 + 50;
-                let nextPosY = Math.random() * 100 + 15;
+                this.gold += (collision.obj.type + 1) * 3;
+
+                let nextPosX = Math.floor(Math.random() * 100 + 50);
+                let nextPosY = Math.floor(Math.random() * 100 + 15);
 
                 collision.obj.position[0] = nextPosX;
                 collision.obj.position[1] = nextPosY;
+                collision.obj.type = Math.floor(Math.random() * 4);
 
                 collision.x = nextPosX + 3;
                 collision.y = nextPosY + 3;
-                this.gold++;
+            }
+            else if (collision.type == "trader") {
+                if (this.mana != 100) {
+                    this.mana = 100;
+                    this.scenario.addScenario("I feel refreshed", 1600);
+                }
+                x = 0;
+                y = 0;
+            }
+            else if (collision.type == "guards") {
+                this.scenario.addScenario("I'm not ready yet!", 1600);
+                x = 0;
+                y = 0;
             }
             else {
                 x = 0;
@@ -134,6 +143,21 @@ export default class Player extends GameObject {
         ctx.translate(this.position[0], this.position[1]);
 
         this.renderables[this.facing].draw(ctx, this.opacity);
+
+        ctx.restore();
+
+        ctx.fillStyle = "#ea433540";
+        ctx.fillRect(this.position[0], this.position[1] + this.renderables[0].subHeight * this.renderables[0].scale + 2, this.renderables[0].subWidth * this.renderables[0].scale, 1);
+
+        ctx.fillStyle = "#ea4335AA";
+        ctx.fillRect(this.position[0], this.position[1] + this.renderables[0].subHeight * this.renderables[0].scale + 2, this.renderables[0].subWidth * this.renderables[0].scale * this.health / 100, 1);
+
+        ctx.fillStyle = "#4285f440";
+        ctx.fillRect(this.position[0], this.position[1] + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale, 1);
+
+        ctx.fillStyle = "#4285f4AA";
+        ctx.fillRect(this.position[0], this.position[1] + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale * this.mana / 100, 1);
+
         ctx.restore();
         ctx.save()
 
@@ -147,5 +171,6 @@ export default class Player extends GameObject {
 
         ctx.fillText(this.name, this.position[0] + (this.renderables[0].subWidth * this.renderables[0].scale / 2) - ctx.measureText(this.name).width / 2, this.position[1] - 5);
         ctx.restore();
+        ctx.save()
     }
 }

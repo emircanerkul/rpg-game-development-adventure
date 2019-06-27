@@ -8,7 +8,7 @@ import Box from './phybox.js';
 
 let engine = new Engine();
 let coin = new Coin(50, 50);
-let coinCollider = new Box("coin", 53, 53, 8, 8,coin);
+let coinCollider = new Box("coin", 53, 53, 8, 8, coin);
 let map = new Map(testMap, mapImage);
 
 engine.addObject(map);

@@ -50,4 +50,11 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 7](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day7.gif)
 
+### 8. Day
+ - [x] Added health and mana bar, removed stamina property.
+ - [x] Energy drink added.
+ - [x] Improved talking machanism.
+
+![Day 8](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day8.gif)
+
 ***#LearningOnTheRoad***
