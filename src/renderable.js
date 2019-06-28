@@ -22,7 +22,8 @@ export default class Renderable {
         this.animTime = new Date().getTime();
     }
 
-    draw(ctx,opacity=1) {
+    draw(ctx, opacity = 1) {
+
         let t = new Date().getTime();
         if (t > this.animTime) {
             this.frame++;
@@ -33,7 +34,15 @@ export default class Renderable {
         let posx = (this.frame % this.framesx) * this.subWidth;
         let posy = Math.floor(this.frame / this.framesx) * this.subHeight;
 
-        ctx.globalAlpha =opacity;
+        ctx.globalAlpha = opacity;
         ctx.drawImage(this.img, posx, posy, this.subWidth, this.subHeight, 0, 0, this.subWidth * this.scale, this.subHeight * this.scale);
+    }
+
+    getImage() {
+        return this.img.src;
+    }
+
+    changeImage(image) {
+        this.img.src = image;
     }
 }

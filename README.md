@@ -57,4 +57,11 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 8](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day8.gif)
 
+### 9. Day
+ - [x] Developed effect manager and added [flame](https://opengameart.org/content/animated-flame-texture) effect.
+ - [x] Player class changer is done.
+ - [x] The codes are slightly more optimized..
+
+![Day 9](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day9.gif)
+
 ***#LearningOnTheRoad***

@@ -4,12 +4,13 @@ import coinImg1 from './assets/coins/1.png';
 import coinImg2 from './assets/coins/2.png';
 import coinImg3 from './assets/coins/3.png';
 import coinImg4 from './assets/coins/4.png';
+import Point from "./point";
 
 export default class Coin extends GameObject {
     constructor(x, y) {
         super();
         this.type = 0;
-        this.position = [x, y];
+        this.position = new Point(x,y);
         this.renderables = [
             new Renderable(coinImg1, .8, 0, 0, 1, 1, 0),
             new Renderable(coinImg2, .8, 0, 0, 1, 1, 0),
@@ -20,7 +21,7 @@ export default class Coin extends GameObject {
 
     draw(ctx) {
         ctx.save()
-        ctx.translate(this.position[0], this.position[1]);
+        ctx.translate(this.position.x, this.position.y);
         this.renderables[this.type].draw(ctx);
         ctx.restore();
     }

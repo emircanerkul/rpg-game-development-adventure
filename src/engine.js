@@ -1,6 +1,8 @@
 import GameObject from "./gameObject";
+import Player from './player.js';
 import Input from "./input";
 import Gui from "./gui";
+import Effect from "./effect";
 
 export default class Engine {
     constructor() {
@@ -15,20 +17,15 @@ export default class Engine {
         this.ctx = this.canvas.getContext("2d");
         this.ctx.imageSmoothingEnabled = false;
 
-
         this.gui = new Gui(this);
+        this.effect = new Effect();
         this.objs = [];
         this.colliders = [];
-
+        this.player = new Player(this, 25, 65);
         this.phyDebug = false;
 
         this.input = new Input();
         window.requestAnimationFrame(this.loop.bind(this));
-    }
-
-    setPlayer(player) {
-        this.player = player;
-        this.addObject(player);
     }
 
     addObject(obj) {
@@ -45,11 +42,7 @@ export default class Engine {
     getCollision(x, y) {
         let val = false;
         this.colliders.forEach(collider => {
-            let result = collider.isInside(x, y);
-
-            if (result) {
-                val = collider;
-            }
+            if (collider.isInside(x, y)) val = collider;
         });
         return val;
     }
@@ -60,25 +53,19 @@ export default class Engine {
 
         if (this.update) this.update(dt);
 
-        this.objs.forEach(obj => {
-            obj.update(this, dt);
-        });
-
-        this.ctx.fillStyle = "#303030";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.objs.forEach(obj => {
-            obj.draw(this.ctx);
-        })
-
-        if (this.phyDebug)
-            this.colliders.forEach(collider => {
-                collider.draw(this.ctx);
-            });
-
+        this.objs.forEach(obj => obj.update(this, dt));
+        this.player.update(this, dt);
         this.gui.draw(this.ctx);
+        this.effect.update(this);
+
+        if (this.phyDebug) this.colliders.forEach(collider => collider.draw(this.ctx));
 
         this.lastTime = time;
         window.requestAnimationFrame(this.loop.bind(this));
+    }
+
+
+    importAll(r) {
+        return r.keys().map(r);
     }
 }

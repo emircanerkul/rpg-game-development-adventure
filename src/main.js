@@ -1,5 +1,4 @@
 import Engine from './engine.js';
-import Player from './player.js';
 import Map from './map.js';
 import mapImage from './assets/dungeon_tiles.png';
 import testMap from './assets/map.json';
@@ -11,6 +10,7 @@ let coin = new Coin(50, 50);
 let coinCollider = new Box("coin", 53, 53, 8, 8, coin);
 let map = new Map(testMap, mapImage);
 
+
 engine.addObject(map);
 engine.addObject(coin);
 engine.addColliders(coinCollider);
@@ -18,68 +18,70 @@ engine.addColliders(map.getColliders());
 
 engine.phyDebug = true;
 
-let player = new Player(engine, 25, 65);
-engine.setPlayer(player);
-
-
 engine.update = (dt) => {
 
     if (engine.input.isKeyDown("KeyA")) {
-        let oPoint = player.position[0];
-        player.translate(-100 * dt * player.speed, 0);
+        let oPoint = engine.player.position.x;
+        engine.player.translate(-100 * dt * engine.player.speed, 0);
 
-        if (oPoint == player.position[0]) player.facing = 7;
-        else player.facing = 3;
+        if (oPoint == engine.player.position.x) engine.player.facing = 7;
+        else engine.player.facing = 3;
     }
 
     else if (engine.input.isKeyDown("KeyD")) {
-        let oPoint = player.position[0];
-        player.translate(100 * dt * player.speed, 0);
+        let oPoint = engine.player.position.x;
+        engine.player.translate(100 * dt * engine.player.speed, 0);
 
-        if (oPoint == player.position[0]) player.facing = 5;
-        else player.facing = 1;
+        if (oPoint == engine.player.position.x) engine.player.facing = 5;
+        else engine.player.facing = 1;
     }
 
     else if (engine.input.isKeyDown("KeyW")) {
-        let oPoint = player.position[1];
-        player.translate(0, -100 * dt * player.speed * .8);
+        let oPoint = engine.player.position.y;
+        engine.player.translate(0, -100 * dt * engine.player.speed * .8);
 
-        if (oPoint == player.position[1]) player.facing = 4;
-        else player.facing = 0;
+        if (oPoint == engine.player.position.y) engine.player.facing = 4;
+        else engine.player.facing = 0;
     }
 
     else if (engine.input.isKeyDown("KeyS")) {
-        let oPoint = player.position[1];
-        player.translate(0, 100 * dt * player.speed * .8);
+        let oPoint = engine.player.position.y;
+        engine.player.translate(0, 100 * dt * engine.player.speed * .8);
 
-        if (oPoint == player.position[1]) player.facing = 6;
-        else player.facing = 2;
+        if (oPoint == engine.player.position.y) engine.player.facing = 6;
+        else engine.player.facing = 2;
     }
 
     else switch (engine.input.lastDirection) {
         case "KeyA":
-            player.facing = 7;
+            engine.player.facing = 7;
             break;
         case "KeyS":
-            player.facing = 6;
+            engine.player.facing = 6;
             break;
         case "KeyD":
-            player.facing = 5;
+            engine.player.facing = 5;
             break;
         case "KeyW":
-            player.facing = 4;
+            engine.player.facing = 4;
             break;
     }
 
+    if(engine.input.isKeyDown("Digit1")) engine.player.transform(1);
+    else if(engine.input.isKeyDown("Digit2")) engine.player.transform(3);
+    else if(engine.input.isKeyDown("Digit3")) engine.player.transform(5);
+    else if(engine.input.isKeyDown("Digit4")) engine.player.transform(7);
+    else if(engine.input.isKeyDown("Digit5")) engine.player.transform(9);
+    else if(engine.input.isKeyDown("Digit6")) engine.player.transform(11);
 
     if (engine.input.isKeyDown("Space")) {
-        player.skills.slide.use(engine, player);
+        engine.player.skills.slide.use(engine, engine.player);
     }
 
     if (engine.input.isKeyDown("ShiftLeft")) {
-        player.speed = .5;
+        engine.player.speed = .5;
     }
     else {
-        player.speed = .3;
+        engine.player.speed = .3;
     }
 }

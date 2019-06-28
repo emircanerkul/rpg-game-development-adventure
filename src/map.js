@@ -23,20 +23,16 @@ export default class Map extends GameObject {
 
     getColliders() { return this.colliders; }
 
-
     draw(ctx) {
         this.data.layers.forEach(layer => {
             if (layer.type == "tilelayer") {
                 let x = 0;
                 let y = 0;
                 layer.data.forEach((value, index) => {
-
-                    x = index % layer.width;
-                    y = Math.floor(index / layer.width)
                     ctx.save();
                     ctx.translate(
-                        this.position[0] + x * this.renderable.subWidth * this.renderable.scale,
-                        this.position[1] + y * this.renderable.subHeight * this.renderable.scale);
+                        this.position.x + index % layer.width * this.renderable.subWidth * this.renderable.scale,
+                        this.position.y + Math.floor(index / layer.width) * this.renderable.subHeight * this.renderable.scale);
 
                     this.renderable.frame = value - 1;
                     this.renderable.draw(ctx);
