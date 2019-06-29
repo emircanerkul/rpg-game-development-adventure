@@ -10,16 +10,16 @@ let coin = new Coin(50, 50);
 let coinCollider = new Box("coin", 53, 53, 8, 8, coin);
 let map = new Map(testMap, mapImage);
 
-
 engine.addObject(map);
 engine.addObject(coin);
 engine.addColliders(coinCollider);
 engine.addColliders(map.getColliders());
 
 engine.phyDebug = true;
-
+engine.player.skills.auto.state = 1;
 engine.update = (dt) => {
 
+    engine.player.skills.auto.tick(engine, coin,dt);
     if (engine.input.isKeyDown("KeyA")) {
         let oPoint = engine.player.position.x;
         engine.player.translate(-100 * dt * engine.player.speed, 0);
@@ -67,12 +67,12 @@ engine.update = (dt) => {
             break;
     }
 
-    if(engine.input.isKeyDown("Digit1")) engine.player.transform(1);
-    else if(engine.input.isKeyDown("Digit2")) engine.player.transform(3);
-    else if(engine.input.isKeyDown("Digit3")) engine.player.transform(5);
-    else if(engine.input.isKeyDown("Digit4")) engine.player.transform(7);
-    else if(engine.input.isKeyDown("Digit5")) engine.player.transform(9);
-    else if(engine.input.isKeyDown("Digit6")) engine.player.transform(11);
+    if (engine.input.isKeyDown("Digit1")) engine.player.transform(1);
+    else if (engine.input.isKeyDown("Digit2")) engine.player.transform(3);
+    else if (engine.input.isKeyDown("Digit3")) engine.player.transform(5);
+    else if (engine.input.isKeyDown("Digit4")) engine.player.transform(7);
+    else if (engine.input.isKeyDown("Digit5")) engine.player.transform(9);
+    else if (engine.input.isKeyDown("Digit6")) engine.player.transform(11);
 
     if (engine.input.isKeyDown("Space")) {
         engine.player.skills.slide.use(engine, engine.player);

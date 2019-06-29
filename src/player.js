@@ -18,22 +18,36 @@ export default class Player extends GameObject {
 
         this.speed = 0.3;
         this.skills = {
-            "slide": {
-                type: "active",
+            "auto": {
                 wait: 1000,
-                effect: -1,
-                decrease: {
-                    mana: 5,
-                    health: 0
-                },
-                increase: {
-                    mana: 0,
-                    health: 1
-                },
+                state: 0,// 0 | 1
+                speed_effect: 2,
+                tick: function (engine, coin, dt) {
+                    if (!this.state) return;
+
+                    if (Math.abs(engine.player.position.x - coin.position.x) > 3)
+                        if (engine.player.position.x < coin.position.x) {
+                            engine.player.translate(100 * dt * engine.player.speed * this.speed_effect, 0); engine.player.facing = 1;
+                        }
+                        else {
+                            engine.player.translate(-100 * dt * engine.player.speed * this.speed_effect, 0);
+                            engine.player.facing = 3
+                        }
+                    else
+                        if (engine.player.position.y + 8 < coin.position.y) {
+                            engine.player.translate(0, 100 * dt * engine.player.speed * .8 * this.speed_effect); engine.player.facing = 2;
+                        }
+                        else {
+                            engine.player.translate(0, -100 * dt * engine.player.speed * .8 * this.speed_effect); engine.player.facing = 0;
+                        }
+                }
+            },
+            "slide": {
+                wait: 1000,
                 last_time: 0,
                 use: function (engine, player) {
                     if (Date.now() - this.last_time > this.wait && player.mana > 0) {
-                        player.mana -= this.decrease.mana;
+                        player.mana -= 10;
                         switch (engine.input.lastDirection) {
                             case "KeyA":
                                 player.position.x -= 20;
@@ -65,21 +79,21 @@ export default class Player extends GameObject {
                     health: 1
                 },
                 last_time: 0, //For calculation {Long|Int: timestamp}
-                use: function () { } //Skill Caller
+                use: function () { }
             }
         };
         this.facing = 6;
         this.playerAssets = engine.importAll(require.context('./assets/characters/', false, /\.(png|jpe?g|svg)$/));
 
         this.renderables = [
-            new Renderable(this.playerAssets[0], 0.5, 0, 2, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 3, 2, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 6, 2, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 9, 2, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 1, 0, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 4, 0, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 7, 0, 3, 4, 7),
-            new Renderable(this.playerAssets[0], 0.5, 10, 0, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 0, 2, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 3, 2, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 6, 2, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 9, 2, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 1, 0, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 4, 0, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 7, 0, 3, 4, 7),
+            new Renderable(this.playerAssets[1], 0.5, 10, 0, 3, 4, 7),
         ];
     }
 
@@ -139,8 +153,11 @@ export default class Player extends GameObject {
         ctx.save()
     }
 
-    draw(ctx) {
+    auto() {
 
+    }
+
+    draw(ctx) {
         this.scenario.tick(ctx);
 
         ctx.save()

@@ -64,4 +64,9 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 9](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day9.gif)
 
+### 10. Day
+ - [x] Developed automatic mode.
+
+![Day 10](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day10.gif)
+
 ***#LearningOnTheRoad***

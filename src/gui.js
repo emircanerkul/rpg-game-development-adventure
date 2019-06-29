@@ -15,5 +15,18 @@ export default class Gui {
         ctx.shadowColor = "#000"
         ctx.fillText(text, 12, this.engine.canvas.height-6, this.engine.canvas.width);
         ctx.restore();
+
+        ctx.save();
+        ctx.font = "bolder 7px Thoma";
+        ctx.fillStyle = "#ffffff90";
+
+         text = "Developed by Emircan ERKUL" ;
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowColor = "#000"
+
+        ctx.fillText(text, 90, this.engine.canvas.height-7, this.engine.canvas.width);
+        ctx.restore();
     }
 }
