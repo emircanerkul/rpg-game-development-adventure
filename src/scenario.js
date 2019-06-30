@@ -2,11 +2,11 @@ export default class Scenario {
     constructor(player) {
         this.player = player;
         this.start_time = Date.now();
-        this.scenario = [
-            { text: "Hi, I'm prince of Yaginia.", start: 100000, duration: 1800 },
-            { text: "I'm being held captive by King", start: 101800, duration: 3000 },
-            { text: "because it's dangerous out there.", start: 104800, duration: 3000 },
-            { text: "I have to learn how to survive.", start: 107800, duration: 3000 },
+        this.scenario = [/*
+            { text: "Hi, I'm prince of Yaginia.", start: 0, duration: 1800 },
+            { text: "I'm being held captive by King", start: 1800, duration: 3000 },
+            { text: "because it's dangerous out there.", start: 4800, duration: 3000 },
+            { text: "I have to learn how to survive.", start: 7800, duration: 3000 },*/
         ];
     }
 

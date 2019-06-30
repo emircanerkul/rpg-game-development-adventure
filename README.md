@@ -69,4 +69,10 @@ I wanted to learn how to develop a game then I just started the learning with [t
 
 ![Day 10](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day10.gif)
 
+### 11. Day
+ - [x] Player can use slide skill and go well for refill mana when on automatic mode.
+ - [x] Gold score is short formatted now.
+
+![Day 11](https://raw.githubusercontent.com/emircanerkul/rpg-game-development-adventure/master/gifs/day11.gif)
+
 ***#LearningOnTheRoad***

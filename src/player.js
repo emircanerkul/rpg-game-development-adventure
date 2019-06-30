@@ -22,47 +22,72 @@ export default class Player extends GameObject {
                 wait: 1000,
                 state: 0,// 0 | 1
                 speed_effect: 2,
+                use_skills: 1,
                 tick: function (engine, coin, dt) {
                     if (!this.state) return;
+                    let target = coin.position;
 
-                    if (Math.abs(engine.player.position.x - coin.position.x) > 3)
-                        if (engine.player.position.x < coin.position.x) {
-                            engine.player.translate(100 * dt * engine.player.speed * this.speed_effect, 0); engine.player.facing = 1;
+                    if (this.use_skills && engine.player.mana == 0)
+                        if (Math.abs(engine.player.position.x - target.x) + Math.abs(engine.player.position.y - target.y) >= Math.abs(engine.player.position.x - 30) + Math.abs(engine.player.position.y - 20)) target = new Point(30, 20);
+
+                    if (Math.abs(engine.player.position.x - target.x) > 3) {
+                        if (engine.player.position.x < target.x) {
+                            engine.player.translate(100 * dt * engine.player.speed * this.speed_effect, 0);
+                            engine.player.facing = 1;
+                            engine.input.lastDirection = "KeyD";
                         }
                         else {
                             engine.player.translate(-100 * dt * engine.player.speed * this.speed_effect, 0);
-                            engine.player.facing = 3
+                            engine.player.facing = 3;
+                            engine.input.lastDirection = "KeyA";
+
                         }
-                    else
-                        if (engine.player.position.y + 8 < coin.position.y) {
-                            engine.player.translate(0, 100 * dt * engine.player.speed * .8 * this.speed_effect); engine.player.facing = 2;
+                        if (this.use_skills && Math.abs(engine.player.position.x - target.x) > 20) {
+                            engine.player.skills.slide.use(engine);
+                        }
+                    }
+                    else {
+                        if (engine.player.position.y + 4 < target.y) {
+                            engine.player.translate(0, 100 * dt * engine.player.speed * .8 * this.speed_effect);
+                            engine.player.facing = 2;
+                            engine.input.lastDirection = "KeyS";
                         }
                         else {
-                            engine.player.translate(0, -100 * dt * engine.player.speed * .8 * this.speed_effect); engine.player.facing = 0;
+                            engine.player.translate(0, -100 * dt * engine.player.speed * .8 * this.speed_effect);
+                            engine.player.facing = 0;
+                            engine.input.lastDirection = "KeyW";
                         }
+                        if (this.use_skills && Math.abs(engine.player.position.y - target.y) > 20) {
+                            engine.player.skills.slide.use(engine);
+                        }
+                    }
                 }
             },
             "slide": {
                 wait: 1000,
                 last_time: 0,
-                use: function (engine, player) {
-                    if (Date.now() - this.last_time > this.wait && player.mana > 0) {
-                        player.mana -= 10;
+                use: function (engine) {
+                    let result = false;
+                    if (Date.now() - this.last_time > this.wait && engine.player.mana > 0) {
                         switch (engine.input.lastDirection) {
                             case "KeyA":
-                                player.position.x -= 20;
+                                result = engine.player.translate(-20, 0);
                                 break;
                             case "KeyD":
-                                player.position.x += 20;
+                                result = engine.player.translate(20, 0);
                                 break;
                             case "KeyS":
-                                player.position.y += 20;
+                                result = engine.player.translate(0, 20);
                                 break;
                             case "KeyW":
-                                player.position.y -= 20;
+                                result = engine.player.translate(0, -20);
                                 break;
                         }
-                        this.last_time = Date.now();
+                        if (result) {
+                            engine.player.mana -= 10;
+                            this.last_time = Date.now();
+                        }
+
                     }
                 }
             },
@@ -98,11 +123,11 @@ export default class Player extends GameObject {
     }
 
     translate(x, y) {
-        let collision = this.engine.getCollision(this.position.x + x + this.renderables[0].subWidth / 4, this.position.y + y + this.renderables[0].subHeight / 2);
+        let collision = this.engine.getCollision(this.position.x + x + this.renderables[0].subWidth / 2 * this.renderables[0].scale, this.position.y + y + this.renderables[0].subHeight * this.renderables[0].scale - 4);
 
         if (collision != false) {
             if (collision.type == "coin") {
-                this.gold += (collision.obj.type + 1) * 3;
+                this.gold += (collision.obj.type + 1) * 811;
 
                 let nextPosX = Math.floor(Math.random() * 100 + 50);
                 let nextPosY = Math.floor(Math.random() * 100 + 15);
@@ -114,7 +139,7 @@ export default class Player extends GameObject {
                 collision.x = nextPosX + 3;
                 collision.y = nextPosY + 3;
             }
-            else if (collision.type == "trader") {
+            else if (collision.type == "well") {
                 if (this.mana != 100) {
                     this.mana = 100;
                     this.scenario.addScenario("I feel refreshed", 1600);
@@ -127,30 +152,41 @@ export default class Player extends GameObject {
                 x = 0;
                 y = 0;
             }
+            else if (collision.type == "trade") {
+                x = 0;
+                y = 0;
+            }
             else {
                 x = 0;
                 y = 0;
             }
         }
-        super.translate(x, y);
+
+        if (x != 0 || y != 0) {
+            super.translate(x, y);
+            return true;
+        }
     }
 
     talk(ctx, text) {
+        ctx.save();
+        ctx.restore();
         ctx.font = "6px roboto";
         ctx.fillStyle = "#00000080";
+
         let dialogX;
         if (this.position.x <= 100) dialogX = this.position.x + (this.renderables[0].subWidth * this.renderables[0].scale) + 5;
         else dialogX = this.position.x - ctx.measureText(text).width - 10;
 
         ctx.fillRect(dialogX, this.position.y + 2, ctx.measureText(text).width + 8, 12);
 
-        ctx.restore();
         ctx.save()
+        ctx.restore();
 
         ctx.fillStyle = "#fff";
         ctx.fillText(text, dialogX + 4, this.position.y + 10);
-        ctx.restore();
         ctx.save()
+        ctx.restore();
     }
 
     auto() {
@@ -174,10 +210,10 @@ export default class Player extends GameObject {
         ctx.fillRect(this.position.x, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 2, this.renderables[0].subWidth * this.renderables[0].scale * this.health / 100, 1);
 
         ctx.fillStyle = "#4285f440";
-        ctx.fillRect(this.position.x, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale, 1);
+        ctx.fillRect(this.position.x-0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale, 1);
 
         ctx.fillStyle = "#4285f4AA";
-        ctx.fillRect(this.position.x, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale * this.mana / 100, 1);
+        ctx.fillRect(this.position.x-0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale * this.mana / 100, 1);
 
         ctx.restore();
         ctx.save()

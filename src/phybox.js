@@ -22,11 +22,14 @@ export default class Box {
             case "guards":
                 ctx.strokeStyle = '#00FF00DD';
                 break;
-            case "trader":
+            case "well":
                 ctx.strokeStyle = '#00FFFFDD';
                 break;
             case "coin":
                 ctx.strokeStyle = '#FFFF00DD';
+                break;
+            case "trade":
+                ctx.strokeStyle = '#FF00FF';
                 break;
             default:
                 break;

@@ -9,8 +9,10 @@ export default class Effect {
             flame : new Renderable(flameImg, .25, 0, 70, 12, 6, 30)
         };
 
-        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(153, 150) });
-        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(177, 150) });
+        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(113, 102) });
+        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(177, 102) });
+        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(113, 142) });
+        this.effects.push({ renderable: this.effect.flame, opacity: 1, position: new Point(177, 142) });
     }
 
     update(engine) {

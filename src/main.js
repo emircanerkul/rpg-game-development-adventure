@@ -9,6 +9,7 @@ let engine = new Engine();
 let coin = new Coin(50, 50);
 let coinCollider = new Box("coin", 53, 53, 8, 8, coin);
 let map = new Map(testMap, mapImage);
+console.log(engine);
 
 engine.addObject(map);
 engine.addObject(coin);
@@ -19,7 +20,6 @@ engine.phyDebug = true;
 engine.player.skills.auto.state = 1;
 engine.update = (dt) => {
 
-    engine.player.skills.auto.tick(engine, coin,dt);
     if (engine.input.isKeyDown("KeyA")) {
         let oPoint = engine.player.position.x;
         engine.player.translate(-100 * dt * engine.player.speed, 0);
@@ -75,7 +75,7 @@ engine.update = (dt) => {
     else if (engine.input.isKeyDown("Digit6")) engine.player.transform(11);
 
     if (engine.input.isKeyDown("Space")) {
-        engine.player.skills.slide.use(engine, engine.player);
+        engine.player.skills.slide.use(engine);
     }
 
     if (engine.input.isKeyDown("ShiftLeft")) {
@@ -84,4 +84,6 @@ engine.update = (dt) => {
     else {
         engine.player.speed = .3;
     }
+
+    engine.player.skills.auto.tick(engine, coin,dt);
 }
