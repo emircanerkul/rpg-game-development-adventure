@@ -1,0 +1,75 @@
+body {
+  background: url("../img/back.png") #fff;
+  margin: 0px;
+  overflow: hidden;
+  text-align: center;
+  background-color: #50525a;
+  margin-top: 20px !important;
+  background: url(../img/back.png);
+}
+
+body #player {
+  display: block;
+  margin: 120px auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+body .frame {
+  background: url("../img/frame.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 100px;
+  width: 200px;
+  height: 250px;
+  display: block;
+  margin: 40px auto 0 auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+body #auto {
+  display: block;
+  margin: 325px auto;
+  left: 0;
+  right: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  font-size: 8pt;
+  color: white;
+  border: solid thin;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 2px 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) -1px 2px 6px 0px;
+          box-shadow: rgba(0, 0, 0, 0.3) -1px 2px 6px 0px;
+  cursor: pointer;
+  min-width: 185px;
+}
+
+body #auto:hover {
+  background-color: #333;
+}
+
+body #speed {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 8pt;
+  text-transform: lowercase;
+  display: block;
+  margin: 355px auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  font-size: 8pt;
+  color: white;
+}
+/*# sourceMappingURL=main.css.map */

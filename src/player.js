@@ -16,16 +16,21 @@ export default class Player extends GameObject {
         this.health = 100;
         this.gold = 0;
 
-        this.speed = 0.3;
+        this.speed = 0.5;
         this.skills = {
             "auto": {
-                wait: 1000,
-                state: 0,// 0 | 1
-                speed_effect: 2,
+                until: 0,
+                speed_effect: 1.2,
                 use_skills: 1,
+                is_active: function () { return this.until > 0 },
                 tick: function (engine, coin, dt) {
-                    if (!this.state) return;
+                    if (!this.is_active()) return;
                     let target = coin.position;
+
+                    if (this.until < 0.1) this.until = 0;
+                    else this.until -= dt;
+
+                    document.getElementById("auto").innerHTML = "Auto: " + parseInt(this.until * 1000) + "ms";
 
                     if (this.use_skills && engine.player.mana == 0)
                         if (Math.abs(engine.player.position.x - target.x) + Math.abs(engine.player.position.y - target.y) >= Math.abs(engine.player.position.x - 30) + Math.abs(engine.player.position.y - 20)) target = new Point(30, 20);
@@ -142,6 +147,7 @@ export default class Player extends GameObject {
             else if (collision.type == "well") {
                 if (this.mana != 100) {
                     this.mana = 100;
+                    this.gold -= 500;
                     this.scenario.addScenario("I feel refreshed", 1600);
                 }
                 x = 0;
@@ -153,6 +159,12 @@ export default class Player extends GameObject {
                 y = 0;
             }
             else if (collision.type == "trade") {
+                if (this.gold >= 1000) {
+                    this.gold -= 1000;
+                    this.speed += 0.1 * ((1 - this.speed) / 10);
+
+                    document.getElementById("speed").innerHTML = "speed: " + parseInt(this.speed * 100000000000);
+                }
                 x = 0;
                 y = 0;
             }
@@ -199,6 +211,11 @@ export default class Player extends GameObject {
         ctx.save()
         ctx.translate(this.position.x, this.position.y);
 
+        if (this.skills.auto.is_active()) {
+            ctx.shadowBlur = 2;
+            ctx.shadowColor = "#00FFFF"
+        }
+
         this.renderables[this.facing].draw(ctx, this.opacity);
 
         ctx.restore();
@@ -210,10 +227,10 @@ export default class Player extends GameObject {
         ctx.fillRect(this.position.x, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 2, this.renderables[0].subWidth * this.renderables[0].scale * this.health / 100, 1);
 
         ctx.fillStyle = "#4285f440";
-        ctx.fillRect(this.position.x-0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale, 1);
+        ctx.fillRect(this.position.x - 0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale, 1);
 
         ctx.fillStyle = "#4285f4AA";
-        ctx.fillRect(this.position.x-0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale * this.mana / 100, 1);
+        ctx.fillRect(this.position.x - 0.5, this.position.y + this.renderables[0].subHeight * this.renderables[0].scale + 4, this.renderables[0].subWidth * this.renderables[0].scale * this.mana / 100, 1);
 
         ctx.restore();
         ctx.save()

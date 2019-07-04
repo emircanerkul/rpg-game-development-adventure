@@ -8,10 +8,7 @@ export default class Engine {
     constructor() {
         document.body.style.margin = "0px";
         document.body.style.overflow = "hidden";
-        this.canvas = document.createElement("canvas");
-        this.canvas.width = 200;
-        this.canvas.height = 200;
-        document.body.appendChild(this.canvas);
+        this.canvas = document.getElementById("player");
 
         this.lastTime = new Date().getTime();
         this.ctx = this.canvas.getContext("2d");

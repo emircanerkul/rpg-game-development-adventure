@@ -2,11 +2,13 @@ export default class Scenario {
     constructor(player) {
         this.player = player;
         this.start_time = Date.now();
-        this.scenario = [/*
+        this.scenario = [
             { text: "Hi, I'm prince of Yaginia.", start: 0, duration: 1800 },
-            { text: "I'm being held captive by King", start: 1800, duration: 3000 },
-            { text: "because it's dangerous out there.", start: 4800, duration: 3000 },
-            { text: "I have to learn how to survive.", start: 7800, duration: 3000 },*/
+            { text: "If you press the spacebar, I can slide", start: 1800, duration: 3000 },
+            { text: "If I need water, take me to the well.", start: 4800, duration: 3000 },
+            { text: "You can start auto mode for 10k gold.", start: 7800, duration: 3000 },
+            { text: "If take me to desk,", start: 10800, duration: 2000 },
+            { text: "I'll speed up for 1k gold", start: 12800, duration: 3000 }
         ];
     }
 
